@@ -11,9 +11,14 @@ export * from "./core/engine/keyword-optimizer.js";
 export * from "./core/engine/glossary.js";
 export * from "./core/engine/translator.js";
 export * from "./core/engine/providers/index.js";
+export * from "./core/engine/audit.js";
+export * from "./core/engine/release-notes.js";
+export * from "./core/engine/pull.js";
+export * from "./core/engine/variants.js";
 
-// Exporters and importers
+// Exporters, importers, HTML preview
 export * from "./core/exporters/index.js";
+export * from "./core/exporters/html-preview.js";
 
 // Locales
 export * from "./core/locales/matrix.js";

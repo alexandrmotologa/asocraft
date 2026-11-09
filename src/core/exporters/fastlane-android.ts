@@ -30,3 +30,18 @@ export async function writeAndroidFastlaneMetadata(
 
   return writtenFiles;
 }
+
+export async function writeAndroidChangelog(
+  locale: string,
+  changelog: string,
+  outDir: string,
+  versionCode: number | string = "default"
+): Promise<string> {
+  const androidLocale = resolveAndroidLocale(locale);
+  const targetDir = path.join(outDir, "android", androidLocale, "changelogs");
+  await fs.mkdir(targetDir, { recursive: true });
+
+  const filePath = path.join(targetDir, `${versionCode}.txt`);
+  await fs.writeFile(filePath, changelog, "utf8");
+  return filePath;
+}

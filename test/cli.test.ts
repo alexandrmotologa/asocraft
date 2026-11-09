@@ -8,6 +8,11 @@ import { runValidate } from "../src/cli/commands/validate.js";
 import { runKeywords } from "../src/cli/commands/keywords.js";
 import { runExport } from "../src/cli/commands/export.js";
 import { runDiff } from "../src/cli/commands/diff.js";
+import { runAudit } from "../src/cli/commands/audit.js";
+import { runReleaseNotes } from "../src/cli/commands/release-notes.js";
+import { runVariants } from "../src/cli/commands/variants.js";
+import { runPreview } from "../src/cli/commands/preview.js";
+import { runCi } from "../src/cli/commands/ci.js";
 
 describe("CLI Commands Integration", () => {
   let tmpDir: string;
@@ -84,5 +89,24 @@ describe("CLI Commands Integration", () => {
       optimize: true,
     });
     // Checks that it completes without throwing
+  });
+
+  it("runs audit, release-notes, variants, preview and ci commands", async () => {
+    await runInit({ force: true });
+    await runLocalize({ locales: "de-DE", provider: "offline" });
+
+    // Run audit
+    await runAudit({ file: "metadata.en.json" });
+
+    // Run release notes
+    await runReleaseNotes({ input: "Bug fixes and performance upgrades.", locales: "de-DE", provider: "offline" });
+
+    // Run variants
+    await runVariants({ locales: "de-DE", angles: "gameplay,social", output: "variants.json" });
+    expect(await fs.access(path.join(tmpDir, "variants.json")).then(() => true)).toBe(true);
+
+    // Run preview
+    await runPreview({ dir: "fastlane/metadata", output: "preview.html" });
+    expect(await fs.access(path.join(tmpDir, "preview.html")).then(() => true)).toBe(true);
   });
 });

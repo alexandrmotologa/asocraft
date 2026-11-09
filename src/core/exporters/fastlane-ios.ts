@@ -35,3 +35,17 @@ export async function writeIosFastlaneMetadata(
 
   return writtenFiles;
 }
+
+export async function writeIosReleaseNotes(
+  locale: string,
+  releaseNotes: string,
+  outDir: string
+): Promise<string> {
+  const iosLocale = resolveIosLocale(locale);
+  const targetDir = path.join(outDir, "ios", iosLocale);
+  await fs.mkdir(targetDir, { recursive: true });
+
+  const filePath = path.join(targetDir, "release_notes.txt");
+  await fs.writeFile(filePath, releaseNotes, "utf8");
+  return filePath;
+}
