@@ -78,34 +78,110 @@ export async function generateVariants(
   const angles: VariantAngle[] = options.angles || ["gameplay", "social", "casual", "progression"];
   const localesMap: Record<string, MetadataVariant[]> = {};
 
+  let provider: BaseTranslationProvider | undefined;
+  if (options.provider) {
+    if (typeof options.provider === "object") {
+      provider = options.provider;
+    } else {
+      provider = createProvider(options.provider as ProviderType, { model: options.model });
+    }
+  }
+
   for (const locale of options.targetLocales) {
     const lang = locale.split("-")[0].toLowerCase();
     const list: MetadataVariant[] = [];
 
-    for (const angle of angles) {
-      const angleDictionary = ANGLE_TEMPLATES[angle];
-      const localizedTemplate = angleDictionary[lang] || angleDictionary.en;
+    if (provider && provider.name !== "offline") {
+      // Real LLM call for bespoke variants
+      const prompt = `You are a mobile App Store Optimization (ASO) and conversion rate optimization (CRO) expert.
+Generate distinct marketing positioning variants for the app "${appName}" in locale "${locale}".
+Base English subtitle: "${options.source.ios?.subtitle || "Mobile App"}"
+Base English description: "${options.source.android?.shortDescription || "Exciting mobile app"}"
 
-      const baseTitle = trimSafe(appName, IOS_LIMITS.title);
-      const sub = trimSafe(localizedTemplate.iosSub, IOS_LIMITS.subtitle);
-      const androidShort = trimSafe(localizedTemplate.androidShort, ANDROID_LIMITS.shortDescription);
+Requested positioning angles: ${angles.join(", ")}
 
-      list.push({
-        angle,
-        angleLabel: angle.toUpperCase(),
-        ios: {
-          title: baseTitle,
-          subtitle: sub,
-          titleLength: countCharacters(baseTitle),
-          subtitleLength: countCharacters(sub),
-        },
-        android: {
-          title: baseTitle,
-          shortDescription: androidShort,
-          titleLength: countCharacters(baseTitle),
-          shortDescLength: countCharacters(androidShort),
-        },
-      });
+CONSTRAINTS (CRITICAL):
+- iOS Subtitle: strictly <= 30 characters.
+- Android Short Description: strictly <= 80 characters.
+- Must be punchy, culturally native, and distinct for each angle.
+
+Return ONLY a JSON array in this format:
+[
+  {
+    "angle": "gameplay",
+    "iosSubtitle": "localized subtitle <= 30 chars",
+    "androidShortDescription": "localized short description <= 80 chars"
+  }
+]`;
+
+      try {
+        const raw = await provider.generateText(prompt);
+        let cleaned = raw.trim();
+        if (cleaned.startsWith("```json")) {
+          cleaned = cleaned.replace(/^```json\s*/, "").replace(/\s*```$/, "");
+        } else if (cleaned.startsWith("```")) {
+          cleaned = cleaned.replace(/^```\s*/, "").replace(/\s*```$/, "");
+        }
+        const parsed = JSON.parse(cleaned) as Array<{
+          angle: VariantAngle;
+          iosSubtitle: string;
+          androidShortDescription: string;
+        }>;
+
+        for (const item of parsed) {
+          const baseTitle = trimSafe(appName, IOS_LIMITS.title);
+          const sub = trimSafe(item.iosSubtitle, IOS_LIMITS.subtitle);
+          const shortDesc = trimSafe(item.androidShortDescription, ANDROID_LIMITS.shortDescription);
+
+          list.push({
+            angle: item.angle,
+            angleLabel: item.angle.toUpperCase(),
+            ios: {
+              title: baseTitle,
+              subtitle: sub,
+              titleLength: countCharacters(baseTitle),
+              subtitleLength: countCharacters(sub),
+            },
+            android: {
+              title: baseTitle,
+              shortDescription: shortDesc,
+              titleLength: countCharacters(baseTitle),
+              shortDescLength: countCharacters(shortDesc),
+            },
+          });
+        }
+      } catch {
+        // Fallback to offline templates if LLM output fails to parse
+      }
+    }
+
+    // Fallback or offline path
+    if (list.length === 0) {
+      for (const angle of angles) {
+        const angleDictionary = ANGLE_TEMPLATES[angle];
+        const localizedTemplate = angleDictionary[lang] || angleDictionary.en;
+
+        const baseTitle = trimSafe(appName, IOS_LIMITS.title);
+        const sub = trimSafe(localizedTemplate.iosSub, IOS_LIMITS.subtitle);
+        const androidShort = trimSafe(localizedTemplate.androidShort, ANDROID_LIMITS.shortDescription);
+
+        list.push({
+          angle,
+          angleLabel: angle.toUpperCase(),
+          ios: {
+            title: baseTitle,
+            subtitle: sub,
+            titleLength: countCharacters(baseTitle),
+            subtitleLength: countCharacters(sub),
+          },
+          android: {
+            title: baseTitle,
+            shortDescription: androidShort,
+            titleLength: countCharacters(baseTitle),
+            shortDescLength: countCharacters(androidShort),
+          },
+        });
+      }
     }
 
     localesMap[locale] = list;

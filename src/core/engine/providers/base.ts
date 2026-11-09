@@ -25,4 +25,5 @@ export interface TranslationResponse {
 export abstract class BaseTranslationProvider {
   abstract readonly name: string;
   abstract translate(request: TranslationRequest): Promise<TranslationResponse>;
+  abstract generateText(prompt: string, systemPrompt?: string): Promise<string>;
 }

@@ -33,12 +33,12 @@ function mapGenreToAppGenre(rawGenre: string | undefined): AppGenre {
   if (g.includes("rpg") || g.includes("role playing")) return "rpg";
   if (g.includes("action")) return "action-game";
   if (g.includes("strategy")) return "strategy-game";
-  if (g.includes("productiv")) return "productivity";
+  if (g.includes("productiv") || g.includes("communicat") || g.includes("social")) return "productivity";
   if (g.includes("utilit") || g.includes("tool")) return "utility";
   if (g.includes("fit") || g.includes("health")) return "fitness";
   if (g.includes("financ") || g.includes("money") || g.includes("bank")) return "finance";
   if (g.includes("educat")) return "education";
-  if (g.includes("entertain")) return "entertainment";
+  if (g.includes("entertain") || g.includes("video") || g.includes("music")) return "entertainment";
   return "casual-game";
 }
 
@@ -107,32 +107,43 @@ export async function pullFromGooglePlay(
 
   const html = await response.text();
 
-  // Extract OpenGraph tags
+  // Extract Title
   const titleMatch = html.match(/<meta property="og:title" content="([^"]+)"/i) || html.match(/<title>([^<]+)<\/title>/i);
   let rawTitle = titleMatch ? titleMatch[1] : packageId;
   rawTitle = rawTitle.replace(/ - Apps on Google Play$/i, "").trim();
 
-  const descMatch = html.match(/<meta property="og:description" content="([^"]+)"/i) || html.match(/<meta name="description" content="([^"]+)"/i);
-  const shortDesc = descMatch ? descMatch[1] : "";
-
-  // Attempt to extract full description from itemprop="description" or JSON-LD
-  let fullDesc = "";
-  const jsonLdMatch = html.match(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/i);
+  // Extract from JSON-LD schema
+  let shortDesc = "";
   let rawCategory = "";
+  const jsonLdMatch = html.match(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/i);
 
   if (jsonLdMatch) {
     try {
       const parsed = JSON.parse(jsonLdMatch[1]);
-      if (parsed.description) fullDesc = parsed.description;
+      if (parsed.description) shortDesc = parsed.description;
       if (parsed.applicationCategory) rawCategory = parsed.applicationCategory;
     } catch {
-      // Ignore JSON parse error, fallback to regex
+      // Ignore JSON parse error, fallback
     }
   }
 
+  if (!shortDesc) {
+    const descMatch = html.match(/<meta property="og:description" content="([^"]+)"/i) || html.match(/<meta name="description" content="([^"]+)"/i);
+    shortDesc = descMatch ? descMatch[1] : "";
+  }
+
+  // Extract full description from data-g-id="description"
+  let fullDesc = "";
+  const fullDescMatch = html.match(/data-g-id="description"[^>]*>([\s\S]*?)<\/div>/i);
+  if (fullDescMatch) {
+    fullDesc = fullDescMatch[1]
+      .replace(/<br\s*[\/]?>/gi, "\n")
+      .replace(/<[^>]+>/g, "")
+      .trim();
+  }
+
   if (!fullDesc) {
-    const fullDescMatch = html.match(/data-g-id="description"[^>]*>([\s\S]*?)<\/div>/i);
-    fullDesc = fullDescMatch ? fullDescMatch[1].replace(/<[^>]+>/g, "").trim() : shortDesc;
+    fullDesc = shortDesc;
   }
 
   const genre = mapGenreToAppGenre(rawCategory);

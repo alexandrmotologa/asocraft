@@ -10,3 +10,5 @@ Thumbs.db
 fastlane/metadata/ios/*/
 fastlane/metadata/android/*/
 !examples/fastlane/**
+*-preview.html
+

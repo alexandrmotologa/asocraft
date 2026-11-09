@@ -58,4 +58,17 @@ export class OpenAiTranslationProvider extends BaseTranslationProvider {
       modelUsed: this.model,
     };
   }
+
+  async generateText(prompt: string, systemPrompt?: string): Promise<string> {
+    const messages: any[] = [];
+    if (systemPrompt) {
+      messages.push({ role: "system", content: systemPrompt });
+    }
+    messages.push({ role: "user", content: prompt });
+    const completion = await this.client.chat.completions.create({
+      model: this.model,
+      messages,
+    });
+    return completion.choices[0]?.message?.content || "";
+  }
 }

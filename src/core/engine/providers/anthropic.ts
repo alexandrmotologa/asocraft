@@ -57,4 +57,15 @@ export class AnthropicTranslationProvider extends BaseTranslationProvider {
       modelUsed: this.model,
     };
   }
+
+  async generateText(prompt: string, systemPrompt?: string): Promise<string> {
+    const message = await this.client.messages.create({
+      model: this.model,
+      max_tokens: 4096,
+      system: systemPrompt,
+      messages: [{ role: "user", content: prompt }],
+    });
+    const block = message.content[0];
+    return block && block.type === "text" ? block.text : "";
+  }
 }

@@ -137,4 +137,8 @@ export class OfflineTranslationProvider extends BaseTranslationProvider {
       modelUsed: "offline-deterministic-heuristic-v1",
     };
   }
+
+  async generateText(prompt: string, systemPrompt?: string): Promise<string> {
+    return `[Offline Generated] Processed request for offline testing.`;
+  }
 }

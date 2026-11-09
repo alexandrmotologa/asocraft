@@ -62,4 +62,18 @@ export class GeminiTranslationProvider extends BaseTranslationProvider {
       modelUsed: this.model,
     };
   }
+
+  async generateText(prompt: string, systemPrompt?: string): Promise<string> {
+    const contents: any[] = [];
+    if (systemPrompt) {
+      contents.push({ role: "user", parts: [{ text: `${systemPrompt}\n\n${prompt}` }] });
+    } else {
+      contents.push({ role: "user", parts: [{ text: prompt }] });
+    }
+    const response = await this.client.models.generateContent({
+      model: this.model,
+      contents,
+    });
+    return response.text || "";
+  }
 }

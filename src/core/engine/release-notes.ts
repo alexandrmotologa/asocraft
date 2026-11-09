@@ -94,17 +94,14 @@ Return ONLY a valid JSON object in this format:
 }`;
 
       try {
-        const resp = await provider.translate({
-          targetLocale: locale,
-          targetLocaleName: getLocaleDisplayName(locale),
-          appName: "App",
-          genre: "utility",
-          glossaryTerms: [],
-          sourceMetadata: { locale: sourceLocale },
-          attempt: 1,
-        });
-
-        const parsed = JSON.parse(resp.rawOutput);
+        const rawText = await provider.generateText(prompt);
+        let cleaned = rawText.trim();
+        if (cleaned.startsWith("```json")) {
+          cleaned = cleaned.replace(/^```json\s*/, "").replace(/\s*```$/, "");
+        } else if (cleaned.startsWith("```")) {
+          cleaned = cleaned.replace(/^```\s*/, "").replace(/\s*```$/, "");
+        }
+        const parsed = JSON.parse(cleaned);
         iosText = parsed.ios || sourceText;
         androidText = parsed.android || sourceText;
       } catch {

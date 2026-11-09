@@ -1,19 +1,52 @@
-# asocraft
+<p align="center">
+  <img src="docs/images/logo.png?raw=true" alt="ASOCraft Logo" width="130" style="border-radius: 24px;" />
+</p>
 
-ASOCraft is a command-line tool and TypeScript library that automates multi-language App Store and Google Play metadata localization. It validates character counts against strict store limits, applies genre-aware terminology, grades ASO quality, generates multi-language release notes, creates A/B testing variants, and exports structured files directly into standard Fastlane directories.
+<h1 align="center">ASOCraft</h1>
+
+<p align="center">
+  <strong>Automated Multi-Language App Store & Google Play Localization Pipeline</strong><br>
+  Strict character boundary enforcement, genre glossaries, ASO auditing, and Fastlane integration.
+</p>
+
+<p align="center">
+  <a href="https://github.com/alexandrmotologa/asocraft/actions"><img src="https://github.com/alexandrmotologa/asocraft/workflows/CI/badge.svg" alt="CI Status" /></a>
+  <a href="https://www.npmjs.com/package/asocraft"><img src="https://img.shields.io/npm/v/asocraft.svg" alt="npm version" /></a>
+  <a href="https://github.com/alexandrmotologa/asocraft/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" /></a>
+  <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.8-blue.svg" alt="TypeScript" /></a>
+</p>
+
+<p align="center">
+  <img src="docs/images/asocraft_demo.gif?raw=true" alt="ASOCraft Demo" width="90%" style="border-radius: 12px; border: 1px solid #1e293b;" />
+</p>
+
+ASOCraft is a command-line tool and TypeScript engine that automates multi-language App Store and Google Play metadata localization. It validates character counts against strict store limits using Unicode grapheme segmentation, applies genre-aware terminology, grades ASO quality, generates multi-language release notes, creates A/B testing variants, and exports structured files directly into standard Fastlane directories.
 
 ## Why this exists
 
-Publishing mobile apps globally requires localized metadata across 15 to 25 languages. Translation tools often expand sentence lengths:
-- German and French frequently expand by 20% to 35% compared to English.
-- Apple App Store limits titles to 30 characters, subtitles to 30 characters, and keywords to 100 characters.
-- Google Play limits titles to 30 characters, short descriptions to 80 characters, and changelogs to 500 characters.
+Publishing mobile apps globally requires localized metadata across 15 to 25 languages. Standard translation workflows break down for two reasons:
+- Language expansion: German and French strings expand by 20% to 35% compared to English.
+- Hard platform limits: Apple App Store limits titles to 30 characters, subtitles to 30 characters, and keywords to 100 characters. Google Play limits titles to 30 characters, short descriptions to 80 characters, and changelogs to 500 characters.
 
-When a translation exceeds these boundaries by a single character, store submission fails. Standard machine translation also misses gaming and app conventions, translating terms literally instead of using high-volume search phrases. ASOCraft solves both problems by running structured output prompts with automated character validation, retries, and quality auditing.
+When a translation exceeds these boundaries by even one character, store submission fails. Standard machine translation also misses gaming and mobile conventions, translating terms literally instead of targeting high-volume search phrases. ASOCraft solves both problems by running structured output prompts with automated character validation, auto-correction retry loops, and quality auditing.
 
-## Features
+## Screenshots
 
-- Character limit enforcement: Validates every title, subtitle, short description, and keyword list against iOS and Google Play constraints.
+<p align="center">
+  <img src="docs/images/asocraft_dashboard.png?raw=true" alt="ASOCraft Interactive Web Preview" width="100%" style="border-radius: 10px; margin-bottom: 16px;" />
+</p>
+
+<p align="center">
+  <img src="docs/images/asocraft_audit.png?raw=true" alt="ASOCraft Audit Terminal Scorecard" width="100%" style="border-radius: 10px; margin-bottom: 16px;" />
+</p>
+
+<p align="center">
+  <img src="docs/images/asocraft_terminal.png?raw=true" alt="ASOCraft Localization Execution" width="100%" style="border-radius: 10px;" />
+</p>
+
+## Key capabilities
+
+- Character limit enforcement: Validates every title, subtitle, short description, and keyword list against iOS and Google Play constraints via `Intl.Segmenter`.
 - Automated correction loop: If a generated string exceeds limits, the engine requests a shorter variation until all fields pass.
 - Fastlane export: Writes metadata directly to `fastlane/metadata/ios/<locale>/` and `fastlane/metadata/android/<locale>/`.
 - ASO quality scorecard (`asocraft audit`): Computes a 0 to 100 ASO quality score, measuring field capacity utilization, keyword density, and formatting.

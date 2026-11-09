@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <clipPath id="squircle-clip">
+      <rect x="24" y="24" width="976" height="976" rx="220" />
+    </clipPath>
+
+    <linearGradient id="cyan-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f5ff"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <linearGradient id="slate-body" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0b0f19"/>
+    </linearGradient>
+
+    <linearGradient id="gold-core" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+
+    <filter id="subtle-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.16" />
+    </filter>
+  </defs>
+
+  <!-- Luxury White Squircle Container -->
+  <rect x="24" y="24" width="976" height="976" rx="220" fill="#ffffff" stroke="#e2e8f0" stroke-width="6" />
+
+  <g clip-path="url(#squircle-clip)">
+    <g transform="translate(512, 512)" filter="url(#subtle-shadow)">
+
+      <!-- Hexagonal Architectural Gateway -->
+      <polygon points="
+        0,-390
+        338,-195
+        338,195
+        0,390
+        -338,195
+        -338,-195
+      " fill="none" stroke="#0f172a" stroke-width="40" stroke-linejoin="round" />
+
+      <polygon points="
+        0,-355
+        307,-177
+        307,177
+        0,355
+        -307,177
+        -307,-177
+      " fill="none" stroke="#00f5ff" stroke-width="4" opacity="0.4" stroke-dasharray="16, 12" />
+
+      <!-- Corner Accent Tech Pins -->
+      <circle cx="0" cy="-390" r="10" fill="#00f5ff" />
+      <circle cx="338" cy="-195" r="10" fill="#00f5ff" />
+      <circle cx="338" cy="195" r="10" fill="#00f5ff" />
+      <circle cx="0" cy="390" r="10" fill="#00f5ff" />
+      <circle cx="-338" cy="195" r="10" fill="#00f5ff" />
+      <circle cx="-338" cy="-195" r="10" fill="#00f5ff" />
+
+      <!-- Symmetrical Watertight Silhouette Base (The Craft Fox / Kitsune) -->
+      <path d="
+        M 0, -280
+        L 90, -290 L 190, -260 L 250, -110 L 230, 20 L 180, 160 L 110, 260 L 0, 310
+        L -110, 260 L -180, 160 L -230, 20 L -250, -110 L -190, -260 L -90, -290
+        Z
+      " fill="#0f172a" />
+
+      <!-- Outer Ears & Crown -->
+      <!-- Left Ear Outer -->
+      <polygon points="-90,-290 -190,-260 -150,-140 -80,-170" fill="#1e293b" />
+      <!-- Right Ear Outer -->
+      <polygon points="90,-290 190,-260 150,-140 80,-170" fill="#334155" />
+
+      <!-- Left Ear Inner Glow -->
+      <polygon points="-110,-240 -160,-220 -130,-160 -85,-180" fill="url(#cyan-glow)" opacity="0.85" />
+      <!-- Right Ear Inner Glow -->
+      <polygon points="110,-240 160,-220 130,-160 85,-180" fill="url(#cyan-glow)" opacity="0.85" />
+
+      <!-- Crown & Forehead Facets -->
+      <polygon points="0,-280 -90,-290 -80,-170 0,-150" fill="#1e293b" />
+      <polygon points="0,-280 90,-290 80,-170 0,-150" fill="#334155" />
+
+      <!-- Mid Forehead Diamond -->
+      <polygon points="0,-150 -80,-170 -60,-80 0,-60" fill="#334155" />
+      <polygon points="0,-150 80,-170 60,-80 0,-60" fill="#475569" />
+
+      <!-- Temple Facets -->
+      <polygon points="-80,-170 -150,-140 -180,-40 -110,-30 -60,-80" fill="#1e293b" />
+      <polygon points="80,-170 150,-140 180,-40 110,-30 60,-80" fill="#334155" />
+
+      <!-- Cheek Ruffs (Lateral Flair) -->
+      <polygon points="-180,-40 -250,-110 -230,20 -150,50 -110,-30" fill="#0f172a" />
+      <polygon points="180,-40 250,-110 230,20 150,50 110,-30" fill="#1e293b" />
+
+      <!-- Lower Cheeks -->
+      <polygon points="-230,20 -180,160 -110,130 -150,50" fill="#1e293b" />
+      <polygon points="230,20 180,160 110,130 150,50" fill="#334155" />
+
+      <!-- Eye Brow Ridges -->
+      <polygon points="0,-60 -60,-80 -90,-20 0,-10" fill="#475569" />
+      <polygon points="0,-60 60,-80 90,-20 0,-10" fill="#64748b" />
+
+      <!-- Electric Cyan Eyes (Sharp almond geometric cant) -->
+      <!-- Left Eye Socket -->
+      <polygon points="-40,-50 -85,-40 -65,-25 -25,-32" fill="#000000" />
+      <polygon points="-38,-47 -80,-38 -62,-27 -28,-33" fill="#00f5ff" />
+      <polygon points="-48,-42 -68,-36 -58,-31 -42,-35" fill="#ffffff" />
+
+      <!-- Right Eye Socket -->
+      <polygon points="40,-50 85,-40 65,-25 25,-32" fill="#000000" />
+      <polygon points="38,-47 80,-38 62,-27 28,-33" fill="#00f5ff" />
+      <polygon points="48,-42 68,-36 58,-31 42,-35" fill="#ffffff" />
+
+      <!-- Nose Bridge (Refined Titanium Slate) -->
+      <polygon points="0,-10 -40,-15 -25,70 0,85" fill="#64748b" />
+      <polygon points="0,-10 40,-15 25,70 0,85" fill="#94a3b8" />
+
+      <!-- Snout Lateral Facets -->
+      <polygon points="-40,-15 -110,-30 -80,60 -25,70" fill="#334155" />
+      <polygon points="40,-15 110,-30 80,60 25,70" fill="#475569" />
+
+      <!-- Whisker Pad Lateral Facets (Subtle Slate, no buck teeth) -->
+      <polygon points="-25,70 -80,60 -110,130 -40,140 0,115" fill="#475569" />
+      <polygon points="25,70 80,60 110,130 40,140 0,115" fill="#64748b" />
+
+      <!-- Geometric Obsidian Nose Tip -->
+      <polygon points="0,85 -20,75 0,65 20,75" fill="#0f172a" />
+      <circle cx="0" cy="74" r="3" fill="#00f5ff" />
+
+      <!-- Chin Plate -->
+      <polygon points="0,115 -40,140 0,165" fill="#1e293b" />
+      <polygon points="0,115 40,140 0,165" fill="#334155" />
+
+      <!-- Chest & Collar Armor (Symmetrical faceted breastplate) -->
+      <polygon points="0,165 -40,140 -110,130 -70,220 0,210" fill="#1e293b" />
+      <polygon points="0,165 40,140 110,130 70,220 0,210" fill="#334155" />
+
+      <polygon points="0,210 -70,220 -110,260 0,290" fill="#0f172a" />
+      <polygon points="0,210 70,220 110,260 0,290" fill="#1e293b" />
+
+      <!-- Central Hexagonal Telemetry Core (ASO Keyword Node) -->
+      <polygon points="0,185 18,195 18,215 0,225 -18,215 -18,195" fill="none" stroke="#00f5ff" stroke-width="3" />
+      <circle cx="0" cy="205" r="4" fill="#00f5ff" />
+
+      <!-- Jaw Contour Points -->
+      <circle cx="-110" cy="130" r="3" fill="#00f5ff" opacity="0.6" />
+      <circle cx="110" cy="130" r="3" fill="#00f5ff" opacity="0.6" />
+
+    </g>
+  </g>
+</svg>
