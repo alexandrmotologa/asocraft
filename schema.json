@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ASOCraft Configuration",
+  "type": "object",
+  "required": ["appName", "genre", "locales", "platforms"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "appId": {
+      "type": "string",
+      "description": "Application bundle identifier or package name (e.g. com.studio.game)"
+    },
+    "appName": {
+      "type": "string",
+      "description": "Display name of the mobile application"
+    },
+    "genre": {
+      "type": "string",
+      "enum": [
+        "casual-game",
+        "puzzle",
+        "rpg",
+        "action-game",
+        "strategy-game",
+        "productivity",
+        "utility",
+        "fitness",
+        "finance",
+        "education",
+        "entertainment"
+      ],
+      "description": "App or game genre used to select targeted high-volume search terminology"
+    },
+    "defaultLocale": {
+      "type": "string",
+      "default": "en-US",
+      "description": "Source baseline locale identifier"
+    },
+    "locales": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Target store locales to generate"
+    },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["ios", "android"]
+      },
+      "description": "Target store platforms"
+    },
+    "provider": {
+      "type": "string",
+      "enum": ["gemini", "anthropic", "openai", "offline"],
+      "default": "gemini",
+      "description": "LLM provider used for localization"
+    },
+    "model": {
+      "type": "string",
+      "description": "Specific model name override"
+    },
+    "outDir": {
+      "type": "string",
+      "default": "fastlane/metadata",
+      "description": "Destination directory for Fastlane metadata structure"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "stripKeywordSpaces": {
+          "type": "boolean",
+          "default": true,
+          "description": "Remove spaces around commas in iOS keywords to maximize capacity"
+        },
+        "deduplicateKeywords": {
+          "type": "boolean",
+          "default": true,
+          "description": "Remove duplicate keywords and terms already indexed in Title/Subtitle"
+        },
+        "maxRetries": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "default": 3,
+          "description": "Maximum LLM regeneration attempts when character boundaries are exceeded"
+        },
+        "verbose": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    }
+  }
+}

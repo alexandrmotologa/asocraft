@@ -1,0 +1,17 @@
+{
+  "locale": "en-US",
+  "appName": "Pixel Quest",
+  "genre": "casual-game",
+  "ios": {
+    "title": "Pixel Quest: Match 3 RPG",
+    "subtitle": "Casual Puzzle Adventure",
+    "keywords": "puzzle,match3,rpg,quest,hero,gems,adventure,offline",
+    "description": "Embark on an unforgettable journey through magical realms in Pixel Quest, the premier casual match-3 puzzle RPG!\n\nMatch radiant gems to unleash devastating magical spells, defeat menacing dungeon bosses, and gather legendary loot to customize your heroes.\n\nGame Features:\n- Over 500 handcrafted match 3 puzzle levels with dynamic hazards\n- Deep hero progression, gear crafting, and magical skill trees\n- Compete in seasonal leaderboards, guild raids, and weekly events\n- Completely playable offline with zero internet connection required\n\nDownload Pixel Quest today and begin your adventure!",
+    "promotionalText": "Special Anniversary Event: Log in now to claim 50 free hero summons and exclusive legendary armor!"
+  },
+  "android": {
+    "title": "Pixel Quest: Match 3 RPG",
+    "shortDescription": "Match gems and defeat epic monsters in this casual puzzle RPG adventure.",
+    "fullDescription": "Embark on an unforgettable journey through magical realms in Pixel Quest, the premier casual match-3 puzzle RPG!\n\nMatch radiant gems to unleash devastating magical spells, defeat menacing dungeon bosses, and gather legendary loot to customize your heroes.\n\nGame Features:\n- Over 500 handcrafted match 3 puzzle levels with dynamic hazards\n- Deep hero progression, gear crafting, and magical skill trees\n- Compete in seasonal leaderboards, guild raids, and weekly events\n- Completely playable offline with zero internet connection required\n\nDownload Pixel Quest today and begin your adventure!"
+  }
+}

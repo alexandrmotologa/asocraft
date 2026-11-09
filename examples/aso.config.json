@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/alexandrmotologa/asocraft/main/schema.json",
+  "appName": "Pixel Quest: Match 3 RPG",
+  "appId": "com.brilic.pixelquest",
+  "genre": "casual-game",
+  "defaultLocale": "en-US",
+  "locales": [
+    "de-DE",
+    "fr-FR",
+    "es-ES",
+    "ja",
+    "ko",
+    "pt-BR",
+    "it",
+    "ru",
+    "zh-Hans"
+  ],
+  "platforms": ["ios", "android"],
+  "provider": "offline",
+  "model": "gemini-2.5-flash",
+  "outDir": "fastlane/metadata",
+  "options": {
+    "stripKeywordSpaces": true,
+    "deduplicateKeywords": true,
+    "maxRetries": 3,
+    "verbose": false
+  }
+}
