@@ -1,6 +1,6 @@
 {
   "name": "asocraft",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Automated App Store and Google Play multi-language ASO localization pipeline with character boundary enforcement and Fastlane export.",
   "type": "module",
   "bin": {

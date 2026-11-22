@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { execSync } from "node:child_process";
 import fs from "node:fs/promises";
 import path from "node:path";
 import os from "node:os";
@@ -17,6 +18,16 @@ import { runCi } from "../src/cli/commands/ci.js";
 describe("CLI Commands Integration", () => {
   let tmpDir: string;
   let originalCwd: string;
+
+  it("outputs version with --version, -v, -V, and version subcommand", () => {
+    const binPath = path.resolve(__dirname, "../bin/asocraft.js");
+    for (const flag of ["--version", "-v", "-V"]) {
+      const out = execSync(`node "${binPath}" ${flag}`, { encoding: "utf8" });
+      expect(out.trim()).toBe("1.0.0");
+    }
+    const outCmd = execSync(`node "${binPath}" version`, { encoding: "utf8" });
+    expect(outCmd).toContain("asocraft v1.0.0");
+  });
 
   beforeEach(async () => {
     tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "asocraft-cli-test-"));

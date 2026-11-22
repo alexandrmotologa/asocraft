@@ -21,7 +21,18 @@ const program = new Command();
 program
   .name("asocraft")
   .description("Automated multi-language App Store and Google Play localization pipeline with character boundary enforcement and Fastlane export")
-  .version("0.1.0");
+  .version("1.0.0", "-v, --version")
+  .option("-V", "output the version number", () => {
+    console.log("1.0.0");
+    process.exit(0);
+  });
+
+program
+  .command("version")
+  .description("Display version information")
+  .action(() => {
+    console.log(`asocraft v${program.version()}`);
+  });
 
 program
   .command("init")

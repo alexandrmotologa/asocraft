@@ -10,7 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/alexandrmotologa/asocraft/actions"><img src="https://github.com/alexandrmotologa/asocraft/workflows/CI/badge.svg" alt="CI Status" /></a>
+  <a href="https://github.com/alexandrmotologa/asocraft/actions/workflows/ci.yml"><img src="https://github.com/alexandrmotologa/asocraft/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://github.com/alexandrmotologa/asocraft/releases"><img src="https://img.shields.io/badge/version-v1.0.0-6366f1.svg?style=flat-square" alt="Version" /></a>
   <a href="https://www.npmjs.com/package/asocraft"><img src="https://img.shields.io/npm/v/asocraft.svg" alt="npm version" /></a>
   <a href="https://github.com/alexandrmotologa/asocraft/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License" /></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.8-blue.svg" alt="TypeScript" /></a>
