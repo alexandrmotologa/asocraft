@@ -27,7 +27,7 @@ describe("CLI Commands Integration", () => {
     }
     const outCmd = execSync(`node "${binPath}" version`, { encoding: "utf8" });
     expect(outCmd).toContain("asocraft v1.0.0");
-  });
+  }, 15000);
 
   beforeEach(async () => {
     tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "asocraft-cli-test-"));
